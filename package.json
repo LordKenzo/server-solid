@@ -1,0 +1,28 @@
+{
+  "name": "server-solid",
+  "version": "1.0.0",
+  "description": "A server built with SOLID in mind",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LordKenzo/server-solid.git"
+  },
+  "keywords": [
+    "Server",
+    "NodeJS",
+    "TypeScript",
+    "SOLID"
+  ],
+  "author": "Lorenzo Franceschini <lordkenzo@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LordKenzo/server-solid/issues"
+  },
+  "homepage": "https://github.com/LordKenzo/server-solid#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.0.0"
+  }
+}
