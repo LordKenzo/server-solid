@@ -2,6 +2,11 @@
 
 L'obiettivo del progetto è creare una API con una architettura ben definita e disaccoppiata, utilizzando un approccio di sviluppo orientato al TDD (Test Driven Development), osservando i principi **SOLID** e appplicando, dove possibile, soluzioni con **Design Pattern** per problemi comuni.
 
+## Idea del Progetto
+
+Un Server è in grado di accogliere richieste in entrata e di produrre delle risposte in uscita processate da uno o più Gestori (Handler) che concorrono all'elaborazione corretta della risposta. Il Server prevede una serie di rotte (endPoints) interrogate tramite architettura REST e quindi esporre risorse accessibili tramite Verbs Http.
+Quando arriva una Request in ingresso, questa deve soddisfare una mappatura che richiamerà, per la rotta interrogata, uno o più Handler.
+
 ## Principi dell'applicazione (SOLID)
 
 * Principio della Singole Responsabilità (SRP)

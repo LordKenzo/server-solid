@@ -1,18 +1,26 @@
 export class  Server {
+  
   constructor(private httpServer: Server.HttpServer) {}
-  start() {
-    this.httpServer.listen();
+
+  start(req: Server.HandlerRequest) {
+    this.httpServer.listen(req);
   }
+  
   stop() {
     this.httpServer.close();
   }
 }
 
 export namespace Server {
+  
   export interface HttpServer {
     port: number;
-    listen: () => void;
+    listen: (req: HandlerRequest) => void;
     close: () => void;
+  }
+
+  export interface HandlerRequest {
+    handle: (request: any, response: any) => void;
   }
 }
 

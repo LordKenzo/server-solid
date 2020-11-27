@@ -9,8 +9,11 @@ export class ExpressHttpServer implements Server.HttpServer {
     this.server = new NodeServer();
   }
 
-  async listen() {
-    this.server = express().listen(this.port, async () => await console.log(`Server listening on ${this.port}`))
+  async listen(request: Server.HandlerRequest) {
+    const app = express()
+    app.use('/', (req, res) => request.handle(req, res));
+    this.server = app.listen(this.port, async () => await console.log(`Express Server listening on ${this.port}`));
+
   }
 
   async close() {
