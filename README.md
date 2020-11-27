@@ -12,3 +12,9 @@ L'obiettivo del progetto è creare una API con una architettura ben definita e d
 * Non ripeterti (DRY)
 * Composizione al posto dell'ereditarietà
 * Piccoli commit
+
+## Dipendenze Particolari
+
+* git-commit-msg-linter: per creare commit con regole standard [Link](https://www.npmjs.com/package/git-commit-msg-linter)
+* tsconfig-path: mi serve per utilizzare le path definite in tsconfig con ts-node [ISSUE](https://github.com/TypeStrong/ts-node/issues/138)
+* ts-jest: per avere TypeScript on-the-fly con Jest
