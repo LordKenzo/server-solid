@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",                          
-    "module": "commonjs",                     
+    "module": "commonjs",  
+    "moduleResolution": "node",                   
     "strict": true,                           
     "rootDir": "src",
     "baseUrl": "src",                       
