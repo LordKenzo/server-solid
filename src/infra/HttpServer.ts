@@ -1,10 +1,11 @@
+import { HttpRouter } from '@/domain/usecases/router';
 import { Server } from '@/domain/usecases/server';
 import { createServer, IncomingMessage, Server as NodeServer} from "http";
 
 export class HttpServer implements Server.HttpServer {
   
   private server: NodeServer;
-  constructor(public port: number) {
+  constructor(public port: number, public router: HttpRouter) {
     this.server = new NodeServer();
   }
 
