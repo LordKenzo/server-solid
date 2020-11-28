@@ -1,22 +1,22 @@
 import { Handler } from "@/domain/usecases/Handler";
 import "reflect-metadata";
+import { HTTPValues } from "../common/httpCommonValues";
 
 export namespace HttpRouter {
   
-  export type HttpVerbs = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH' | 'OPTIONS';
-  
   export interface Route {
-    verb:HttpRouter.HttpVerbs
+    verb: HTTPValues.HTTP_VERBS
     endpoint: string
     handler: Handler | Handler[]
   }
 
   type Constructor<T> = new (...args: any[]) => T;
 
-
   export function Router(router: Route[]){
     return <T>(target: Constructor<T>) => {
       Reflect.defineMetadata('routes', router, target);
+      console.log('TARGET', target);
+      console.log('Routes caricate...', router);
     };
   }
 

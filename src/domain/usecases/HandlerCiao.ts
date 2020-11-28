@@ -1,4 +1,5 @@
 import { Server } from '@/domain/usecases/server';
+import { HTTPValues } from '../common/httpCommonValues';
 
 /*
 Il lavoro dell'Handler è elaborare una richiesta e produrre un risultato da passare al router
@@ -13,7 +14,7 @@ export class HandlerCiao implements Server.HandlerRequest {
     return {
       err: null,
       payload: {
-        status: 200,
+        status: HTTPValues.HTTP_STATUS_CODES.OK,
         data: `${data} - Ciao Mondo!!!`
       }
     }

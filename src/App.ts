@@ -9,8 +9,7 @@ export class App {
 
   launch() {
     console.log("Launch App");
-    const request: Server.HandlerRequest = new Handler();
-    this.server.start(request);
+    this.server.start();
   }
 }
 
