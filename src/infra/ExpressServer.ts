@@ -3,6 +3,7 @@ import { Server as NodeServer } from "http";
 import { Server } from '@/domain/usecases/server';
 import { HttpRouter } from '@/domain/usecases/router';
 import { Handler } from '@/domain/usecases/Handler';
+import { HandlerCiao } from '@/domain/usecases/HandlerCiao';
 
 
 @HttpRouter.Router([
@@ -14,7 +15,7 @@ import { Handler } from '@/domain/usecases/Handler';
   {
     verb: 'GET',
     endpoint: '/hello',
-    handler: new Handler(),
+    handler: [new Handler(), new HandlerCiao()]
   },
   {
     verb: 'POST',
@@ -45,18 +46,35 @@ export class ExpressHttpServer implements Server.HttpServer {
 
   private buildRoutes(expressRouter: Router) {
     const getRequest = this.router.routes.filter((route: any) => route.verb === 'GET');
-    const postRequest = this.router.routes.filter((route: any) => route.verb === 'POST');
+    // const postRequest = this.router.routes.filter((route: any) => route.verb === 'POST');
+
     getRequest.forEach(route => expressRouter.get(route.endpoint, (req:Request, res: Response) => {
-      res.send(route.handler.handle(req, res));
+      if(Array.isArray(route.handler)) {
+        const result = route.handler.reduce((prev,handler) => {
+          return handler.handle(req, res, prev);
+        }, {});
+        console.log('Tanti Handler');
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.write(JSON.stringify(result));
+        res.end();
+      } else {
+        console.log('Un solo Handler');
+        const result = route.handler.handle(req, res);
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.write(JSON.stringify(result));
+        res.end();
+      }
+      
     }));
-    postRequest.forEach(route => expressRouter.post(route.endpoint, async (req:Request, res: Response) => {
+
+    /*postRequest.forEach(route => expressRouter.post(route.endpoint, async (req:Request, res: Response) => {
       try {
         res.send(await route.handler.handle(req, res));
       } catch(err) {
         res.send(err);
       }
-     
-    }));
+    }));*/
+
     return expressRouter;
   }
 

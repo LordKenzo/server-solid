@@ -8,7 +8,7 @@ export namespace HttpRouter {
   export interface Route {
     verb:HttpRouter.HttpVerbs
     endpoint: string
-    handler: Handler
+    handler: Handler | Handler[]
   }
 
   type Constructor<T> = new (...args: any[]) => T;
@@ -16,10 +16,7 @@ export namespace HttpRouter {
 
   export function Router(router: Route[]){
     return <T>(target: Constructor<T>) => {
-      console.log('Decoratore delle Routes avviato...')
       Reflect.defineMetadata('routes', router, target);
-     
-      
     };
   }
 

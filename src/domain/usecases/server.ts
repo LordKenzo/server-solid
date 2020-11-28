@@ -20,8 +20,17 @@ export namespace Server {
   }
 
   export interface HandlerRequest {
-    handle: (request: any, response: any) => void;
+    handle: (request: any, response: any, prev?: any) => HandlerPayload;
   }
+
+  export type HandlerPayload = {
+    err: string | null,
+    payload: {
+      status: number,
+      data: any
+    }
+  }
+  
 }
 
 
