@@ -15,8 +15,6 @@ export namespace HttpRouter {
   export function Router(router: Route[]){
     return <T>(target: Constructor<T>) => {
       Reflect.defineMetadata('routes', router, target);
-      console.log('TARGET', target);
-      console.log('Routes caricate...', router);
     };
   }
 

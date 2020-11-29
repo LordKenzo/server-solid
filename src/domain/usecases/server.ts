@@ -30,7 +30,7 @@ export namespace Server {
     payload: {
       status: HTTPValues.HTTP_STATUS_CODES,
       data: any
-    }
+    } | null
   } | Promise<{
     err: HandlerError | null,
     payload: {
