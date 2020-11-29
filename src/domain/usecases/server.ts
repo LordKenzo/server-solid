@@ -1,9 +1,11 @@
-export class  Server {
+import { HTTPValues } from "../common/httpCommonValues";
+
+export class Server {
   
   constructor(private httpServer: Server.HttpServer) {}
 
-  start(req: Server.HandlerRequest) {
-    this.httpServer.listen(req);
+  start() {
+    this.httpServer.listen();
   }
   
   stop() {
@@ -15,13 +17,46 @@ export namespace Server {
   
   export interface HttpServer {
     port: number;
-    listen: (req: HandlerRequest) => void;
+    listen: () => void;
     close: () => void;
   }
 
   export interface HandlerRequest {
-    handle: (request: any, response: any) => void;
+    handle: (request: IncomingRequest, response: OutgoingResponse, prev?: any) => Promise<HandlerPayload>;
   }
+
+  export type HandlerPayload = {
+    err: HandlerError | null,
+    payload: {
+      status: HTTPValues.HTTP_STATUS_CODES,
+      data: any
+    }
+  } | Promise<{
+    err: HandlerError | null,
+    payload: {
+      status: HTTPValues.HTTP_STATUS_CODES,
+      data: any
+    }  
+  }>
+
+  export type HandlerError = {
+    error: string,
+    code: HTTPValues.HTTP_STATUS_CODES
+  }
+
+  export interface IncomingRequest {
+    endpoint: string,
+    verb: string
+    payload: any
+  }
+
+  export interface OutgoingResponse {
+    data: {
+      status: number,
+      messagge: string
+    }
+  }
+  
 }
 
 

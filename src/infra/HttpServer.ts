@@ -1,21 +1,48 @@
-import { Server } from '@/domain/usecases/server';
-import { createServer, IncomingMessage, Server as NodeServer} from "http";
+import { HTTPValues } from '@/domain/common/httpCommonValues';
+import { Handler } from '@/domain/usecases/Handler';
+import { HandlerCiao } from '@/domain/usecases/HandlerCiao';
+import { HandlerMessage } from '@/domain/usecases/HandlerMessage';
+import { HttpRouter } from '@/domain/usecases/router';
+import { Utils } from '@/utils/Utils';
+import { createServer, Server as NodeServer} from "http";
+import { BaseServer } from './BaseServer';
 
-export class HttpServer implements Server.HttpServer {
+@HttpRouter.Router([
+  {
+    verb: HTTPValues.HTTP_VERBS.GET,
+    endpoint: '/',
+    handler: new Handler(),
+  },
+  {
+    verb: HTTPValues.HTTP_VERBS.GET,
+    endpoint: '/hello',
+    handler: [new Handler(), new HandlerCiao()]
+  },
+  {
+    verb: HTTPValues.HTTP_VERBS.POST,
+    endpoint: '/message',
+    handler: [new HandlerMessage()],
+  },
+])
+export class HttpServer extends BaseServer {
   
   private server: NodeServer;
-  constructor(public port: number) {
+  
+  constructor(public port: number, public router: HttpRouter) {
+    super();
     this.server = new NodeServer();
+    this.routingTable = this.buildRoutes(this.router);
   }
 
-  async listen(request: Server.HandlerRequest) {
+  async listen() {
     this.server = createServer((req, res) => {
-      request.handle(req, res);
-     
+      const path = Utils.getBasePath(req);
+      this.processRequest(path, this.routingTable && this.routingTable[path], req, res);
     }).listen(this.port, async () => await console.log(`Http Server listening on ${this.port}`))
   }
 
   async close() {
     this.server.close();
   }
+
 }
