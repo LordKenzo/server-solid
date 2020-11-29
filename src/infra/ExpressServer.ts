@@ -6,6 +6,7 @@ import { HandlerCiao } from '@/domain/usecases/HandlerCiao';
 import { HTTPValues } from '@/domain/common/httpCommonValues';
 import { BaseServer } from './BaseServer';
 import { HandlerMessage } from '@/domain/usecases/HandlerMessage';
+import { AxiosAdapter } from './AxiosAdapter';
 
 @HttpRouter.Router([
   {
@@ -21,7 +22,7 @@ import { HandlerMessage } from '@/domain/usecases/HandlerMessage';
   {
     verb: HTTPValues.HTTP_VERBS.POST,
     endpoint: '/message',
-    handler: [new HandlerMessage()],
+    handler: [new HandlerMessage(new AxiosAdapter())],
   },
 ])
 export class ExpressHttpServer extends BaseServer {

@@ -1,21 +1,28 @@
 import axios from 'axios';
 import { PagoPAApi } from '../Data/PagoPAApi';
-// import { API_BASE_URL, API_PROFILE_URL } from "../Server/config";
+import { API_BASE_URL, API_MESSAGE_URL, API_PROFILE_URL } from "@/domain/common/serverConfig";
 
 export class AxiosAdapter implements PagoPAApi { 
 
-    private header = {
-        'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '1d36deca4a984067822118aeec8e2f23' // process.env.APISECRET
+    private header = {}
+
+    constructor() {
+        if(process.env.NODE_ENV !== "production") {
+            require('dotenv').config();
+        }
+        this.header = {
+            'Content-Type': 'application/json',
+            'Ocp-Apim-Subscription-Key': process.env.API_SECRET
+        }
     }
     
     async getProfile(profile: any): Promise<any> {
         if(profile.fiscal_code.length === 16) {
-           return axios.post<any>(`https://api.io.italia.it/api/v1/profiles`,{
+           return axios.post<any>(`${API_BASE_URL}/${API_PROFILE_URL}`,{
                fiscal_code: profile.fiscal_code
            }, {headers: this.header})
            .then(res => res.data)
-           .catch(err => err)
+           .catch(err => err.response.data)
         } else {
             return undefined;
         }
@@ -23,7 +30,7 @@ export class AxiosAdapter implements PagoPAApi {
 
     async postRequest(body: any): Promise<any> {
         try {
-        return axios.post<any>(`https://api.io.italia.it/api/v1/messages`,{
+        return axios.post<any>(`${API_BASE_URL}/${API_MESSAGE_URL}`,{
             content: body.content,
             fiscal_code: body.fiscal_code
         }, {headers: this.header}).then(res => {

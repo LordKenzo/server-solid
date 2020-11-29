@@ -25,3 +25,15 @@ Content-Type: application/json
     },
     "fiscal_code": "AAAAAA00A00A000A"
 }
+
+###
+POST http://localhost:8080/message
+Content-Type: application/json
+
+{
+    "content": {
+        "subject": "0123456789",
+        "markdown": "01234567890123456789012345678901234567890123456789012345678901234567890123456789"
+    },
+    "fiscal_code": "BAAAAA00A00A000A"
+}

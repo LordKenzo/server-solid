@@ -17,7 +17,6 @@ export abstract class BaseServer implements Server.HttpServer {
   async processRequest(endpoint: string, route: any, req: any, res: any) {
     //this.processRequest(path, this.routingTable && this.routingTable[path], req, res)
     if(route && Array.isArray(route.handler) && route.verb === req.method) {
-      console.log('Tanti Handler');
       const result = await route.handler.reduce(async (prev: any,handler: any) => {
         return await handler.handle(req, res, prev);
       }, {});
@@ -26,7 +25,6 @@ export abstract class BaseServer implements Server.HttpServer {
       res.write(JSON.stringify(result));
       res.end();
     } else if(route && !Array.isArray(route.handler) && route.verb === req.method){
-      console.log('Un solo Handler');
       const result = await route.handler.handle(req, res);
       res.writeHead(HTTPValues.HTTP_STATUS_CODES.OK, {'Content-Type': 'text/plain'});
       res.write(JSON.stringify(result));
