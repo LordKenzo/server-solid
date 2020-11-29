@@ -7,7 +7,7 @@ export namespace HttpRouter {
   export interface Route {
     verb: HTTPValues.HTTP_VERBS
     endpoint: string
-    handler: Handler | Handler[]
+    handler: Handler | Handler[] | any
   }
 
   type Constructor<T> = new (...args: any[]) => T;

@@ -5,3 +5,23 @@ GET http://localhost:8080
 GET http://localhost:8080/hello
 
 ###
+
+GET http://localhost:8080/noroute
+
+###
+
+
+GET http://localhost:8080/message
+
+###
+
+POST http://localhost:8080/message
+Content-Type: application/json
+
+{
+    "content": {
+        "subject": "0123456789",
+        "markdown": "01234567890123456789012345678901234567890123456789012345678901234567890123456789"
+    },
+    "fiscal_code": "AAAAAA00A00A000A"
+}

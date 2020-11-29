@@ -5,11 +5,11 @@ import { HTTPValues } from '../common/httpCommonValues';
 Il lavoro dell'Handler è elaborare una richiesta e produrre un risultato da passare al router
 */
 export class HandlerCiao implements Server.HandlerRequest {
-  handle(req: any, res: any, prev?: any): Server.HandlerPayload {
+  async handle(req: any, res: any, prev?: any): Promise<Server.HandlerPayload> {
     let data;
-    console.log('PREV', prev)
-    if(prev) {
-      data = prev.payload.data
+    const resPrev = await prev;
+    if(resPrev) {
+      data = resPrev.payload.data
     }
     return {
       err: null,

@@ -1,6 +1,6 @@
 import { HTTPValues } from "../common/httpCommonValues";
 
-export class  Server {
+export class Server {
   
   constructor(private httpServer: Server.HttpServer) {}
 
@@ -22,7 +22,7 @@ export namespace Server {
   }
 
   export interface HandlerRequest {
-    handle: (request: IncomingRequest, response: OutgoingResponse, prev?: any) => HandlerPayload;
+    handle: (request: IncomingRequest, response: OutgoingResponse, prev?: any) => Promise<HandlerPayload>;
   }
 
   export type HandlerPayload = {
@@ -31,7 +31,13 @@ export namespace Server {
       status: HTTPValues.HTTP_STATUS_CODES,
       data: any
     }
-  }
+  } | Promise<{
+    err: HandlerError | null,
+    payload: {
+      status: HTTPValues.HTTP_STATUS_CODES,
+      data: any
+    }  
+  }>
 
   export type HandlerError = {
     error: string,
