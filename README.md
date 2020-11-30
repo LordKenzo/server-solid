@@ -9,9 +9,10 @@ Quando arriva una Request in ingresso, questa deve soddisfare una mappatura che 
 Ogni Handler può ricevere il dato elaborato dal precedente Handler o vedersi interrompere la catena (es. mancata autorizzazione).
 Un Handler riceve un header ed un body della Request. Per questo va prevista una interfaccia o un adapter in quanto devo elaborare request provenienti da Express o Http di NodeJS.
 
-> #### Server:
-> #### Handler:
-> #### Request: Response:
+> #### Server: Il Server è una classe che dipende dall'interfaccia HTTPServer che viene implementata dalle classi concrete ExpressServer e HttpServer tramite la classe astratta BaseServer. Il suo unico compito è quello di avviare il servizio e di fornire, tramite il suo namespace, alcune interfacce ed enumerazioni (Verbs e HTTP Status Code).
+> #### Router: Il compito del Router è creare la tabella di routing e gestire gli handler dell'endpoint richiesto, "confenzionando" la risposta o l'errore.
+> #### Handler: L'Handler è l'interfaccia a cui devono aderire gli Handler concreti, responsabili di gestire la richiesta e produrre una risposta, che verrà elaborata dal Router.
+
 
 ## Principi dell'applicazione (SOLID)
 

@@ -4,7 +4,7 @@ import { Server } from './server';
 /*
 Il lavoro dell'Handler è elaborare una richiesta e produrre un risultato da passare al router
 */
-export class HandlerCiao implements Handler.HandlerRequest {
+export class HandlerCiao extends Handler implements Handler.HandlerRequest {
   async handle(req: any, res: any, prev?: any): Promise<Handler.HandlerPayload> {
     let data;
     const resPrev = await prev;
