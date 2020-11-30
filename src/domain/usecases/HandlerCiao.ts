@@ -1,11 +1,11 @@
-import { Server } from '@/domain/usecases/server';
+import { Handler } from '@/domain/usecases/handler';
 import { HTTPValues } from '../common/httpCommonValues';
 
 /*
 Il lavoro dell'Handler è elaborare una richiesta e produrre un risultato da passare al router
 */
-export class HandlerCiao implements Server.HandlerRequest {
-  async handle(req: any, res: any, prev?: any): Promise<Server.HandlerPayload> {
+export class HandlerCiao implements Handler.HandlerRequest {
+  async handle(req: any, res: any, prev?: any): Promise<Handler.HandlerPayload> {
     let data;
     const resPrev = await prev;
     if(resPrev) {

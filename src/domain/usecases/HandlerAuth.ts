@@ -2,21 +2,40 @@ import { PagoPAApi } from '@/data/PagoPAAPI';
 import { Handler } from '@/domain/usecases/handler';
 import { HTTPValues } from '../common/httpCommonValues';
 
-export class HandlerMessage implements Handler.HandlerRequest {
+export class HandlerAuth implements Handler.HandlerRequest {
   constructor(private apiRequest: PagoPAApi) {}
+  
   async handle(req: any, res: any, prev?: any): Promise<Handler.HandlerPayload> {
-    const body: any = await this.getBody(req);
+    const body = await this.getBody(req);
+    try {
+      const result = await this.handlePost(body);
+      return {
+        err: null,
+        payload: {
+          status: HTTPValues.HTTP_STATUS_CODES.OK,
+          data:  await result
+        }
+      }
+    } catch(err) {
+      return {
+        err: err,
+        payload: null
+      }
+    }
+    
+  }
+
+  private async handlePost(body: any) {
     return new Promise(async (resolve, reject)=> {
       try {
         const result = await this.apiRequest.getProfile({fiscal_code : body.fiscal_code});
         if(result && result.sender_allowed) {
-          const  result = await this.apiRequest.postRequest(body);
-          resolve({err: null, payload: {data: result, status: HTTPValues.HTTP_STATUS_CODES.OK}});
+          resolve(true);
         } else {
-          reject({err: result, payload: null});
+          reject({status: result.status, message: result.detail});
         }
       } catch(err) {
-        reject({err: err, payload: null});
+        reject({status: HTTPValues.HTTP_STATUS_CODES.NOT_FOUND, message: err});
       }
     });
   }

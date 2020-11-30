@@ -1,13 +1,13 @@
 import { HTTPValues } from "@/domain/common/httpCommonValues";
 import { Server } from "@/domain/usecases/server";
 import { HttpServer } from '@/infra/HttpServer';
-import { Handler } from "../HandlerProva";
+import { HandlerProva } from "../HandlerProva";
 
 describe('Server', () => {
   const httpServer =  new HttpServer(8080, {routes: [{
     endpoint: '',
     verb:  HTTPValues.HTTP_VERBS.GET,
-    handler: new Handler()
+    handler: new HandlerProva()
   }]});
 
   test('should be able to listen', async (done) => {

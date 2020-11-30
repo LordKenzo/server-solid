@@ -44,3 +44,36 @@ Per avviare, clona il progetto e da shell avvia l'installazione dei packages e l
 npm i
 npm run dev
 ```
+
+## Switch Express e CreateServer NodeJS
+
+Per cambiare il tipo di server, basta modificare la seguente riga di codice in index.ts con i metodi `createExpressServer` oppure con `createConnectHttpServer`:
+
+```js
+const server = App.createExpressServer();
+// const server = App.createConnectHttpServer();
+```
+
+## Routing
+
+Per definire le tabelle di Routing basta usare il decoratore `RoutingTable` definito nel namespace HttpRouter, il decoratore va applicato alla classe concreta che implenta il server, qui un esempio:
+
+```ts
+@HttpRouter.RoutingTable([
+  {
+    verb: HTTPValues.HTTP_VERBS.GET,
+    endpoint: '/',
+    handler: new HandlerProva(),
+  },
+  {
+    verb: HTTPValues.HTTP_VERBS.GET,
+    endpoint: '/hello',
+    handler: [new HandlerProva(), new HandlerCiao()]
+  },
+  {
+    verb: HTTPValues.HTTP_VERBS.POST,
+    endpoint: '/message',
+    handler: [new HandlerAuth(new AxiosAdapter()), new HandlerMessage(new AxiosAdapter())],
+  },
+])
+```
