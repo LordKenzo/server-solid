@@ -1,4 +1,3 @@
-import { HTTPValues } from "@/domain/common/httpCommonValues";
 import { Server } from "@/domain/usecases/server";
 import { HttpServer } from '@/infra/HttpServer';
 import { HandlerProva } from "../HandlerProva";
@@ -6,7 +5,7 @@ import { HandlerProva } from "../HandlerProva";
 describe('Server', () => {
   const httpServer =  new HttpServer(8080, {routes: [{
     endpoint: '',
-    verb:  HTTPValues.HTTP_VERBS.GET,
+    verb:  Server.HTTP_VERBS.GET,
     handler: new HandlerProva()
   }]});
 

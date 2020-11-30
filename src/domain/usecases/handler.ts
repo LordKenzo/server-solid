@@ -1,4 +1,4 @@
-import { HTTPValues } from "../common/httpCommonValues";
+import { Server } from "./server";
 
 export namespace Handler {
   export interface HandlerRequest {
@@ -8,20 +8,20 @@ export namespace Handler {
   export type HandlerPayload = {
     err: HandlerError | null,
     payload: {
-      status: HTTPValues.HTTP_STATUS_CODES,
+      status: Server.HTTP_STATUS_CODES,
       data: any
     } | null
   } | Promise<{
     err: HandlerError | null,
     payload: {
-      status: HTTPValues.HTTP_STATUS_CODES,
+      status: Server.HTTP_STATUS_CODES,
       data: any
     }  
   }>
 
   export type HandlerError = {
     error: string,
-    code: HTTPValues.HTTP_STATUS_CODES
+    code: Server.HTTP_STATUS_CODES
   }
 
   export interface IncomingRequest {

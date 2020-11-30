@@ -1,6 +1,6 @@
 import { PagoPAApi } from '@/data/PagoPAAPI';
 import { Handler } from '@/domain/usecases/handler';
-import { HTTPValues } from '../common/httpCommonValues';
+import { Server } from './server';
 
 export class HandlerAuth implements Handler.HandlerRequest {
   constructor(private apiRequest: PagoPAApi) {}
@@ -12,7 +12,7 @@ export class HandlerAuth implements Handler.HandlerRequest {
       return {
         err: null,
         payload: {
-          status: HTTPValues.HTTP_STATUS_CODES.OK,
+          status: Server.HTTP_STATUS_CODES.OK,
           data:  await result
         }
       }
@@ -35,7 +35,7 @@ export class HandlerAuth implements Handler.HandlerRequest {
           reject({status: result.status, message: result.detail});
         }
       } catch(err) {
-        reject({status: HTTPValues.HTTP_STATUS_CODES.NOT_FOUND, message: err});
+        reject({status: Server.HTTP_STATUS_CODES.NOT_FOUND, message: err});
       }
     });
   }

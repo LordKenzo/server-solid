@@ -1,4 +1,3 @@
-import { HTTPValues } from "@/domain/common/httpCommonValues";
 import { HttpRouter } from "@/domain/usecases/router";
 import { Server } from "@/domain/usecases/server";
 
@@ -22,14 +21,14 @@ export abstract class BaseServer implements Server.HttpServer {
               return result;
         }, {});
         
-        await res.writeHead(HTTPValues.HTTP_STATUS_CODES.OK, {'Content-Type': 'text/plain'});
+        await res.writeHead(Server.HTTP_STATUS_CODES.OK, {'Content-Type': 'text/plain'});
         await res.write(JSON.stringify(result));
         await res.end();
         
       } else if(route && !Array.isArray(route.handler) && route.verb === req.method){
         console.log('ROUTE CON UN SOLO HANDLER!');
         const result = await route.handler.handle(req, res);
-        res.writeHead(HTTPValues.HTTP_STATUS_CODES.OK, {'Content-Type': 'text/plain'});
+        res.writeHead(Server.HTTP_STATUS_CODES.OK, {'Content-Type': 'text/plain'});
         res.write(JSON.stringify(result));
         res.end();
       } else if(route && route.verb !== req.method){ 
@@ -46,15 +45,15 @@ export abstract class BaseServer implements Server.HttpServer {
 
   protected resourceNotFound(res: any, endpoint: string){
     console.log('ROUTE NOT FOUND!!!');
-    res.writeHead(HTTPValues.HTTP_STATUS_CODES.NOT_FOUND, {'Content-Type': 'text/plain'});
-    res.write(JSON.stringify({err: { status: HTTPValues.HTTP_STATUS_CODES.NOT_FOUND, title: 'Resource Not Found', message: `${endpoint} You resource is not here!!!`}}));
+    res.writeHead(Server.HTTP_STATUS_CODES.NOT_FOUND, {'Content-Type': 'text/plain'});
+    res.write(JSON.stringify({err: { status: Server.HTTP_STATUS_CODES.NOT_FOUND, title: 'Resource Not Found', message: `${endpoint} You resource is not here!!!`}}));
     res.end();
   }
 
   protected verbNotFound(res: any, endpoint: string){
     console.log('VERB NOT FOUND!!!');
-    res.writeHead(HTTPValues.HTTP_STATUS_CODES.BAD_REQUEST, {'Content-Type': 'text/plain'});
-    res.write(JSON.stringify({err: { status: HTTPValues.HTTP_STATUS_CODES.BAD_REQUEST, title: 'Verb Not Found', message: `${endpoint} You resource is not here!!!`}}));
+    res.writeHead(Server.HTTP_STATUS_CODES.BAD_REQUEST, {'Content-Type': 'text/plain'});
+    res.write(JSON.stringify({err: { status: Server.HTTP_STATUS_CODES.BAD_REQUEST, title: 'Verb Not Found', message: `${endpoint} You resource is not here!!!`}}));
     res.end();
   }
 

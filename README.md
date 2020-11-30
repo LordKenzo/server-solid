@@ -45,6 +45,8 @@ npm i
 npm run dev
 ```
 
+E' presente un file di `request.http` da avviare per fare i test. Sono presenti delle route di prova.
+
 ## Switch Express e CreateServer NodeJS
 
 Per cambiare il tipo di server, basta modificare la seguente riga di codice in index.ts con i metodi `createExpressServer` oppure con `createConnectHttpServer`:
