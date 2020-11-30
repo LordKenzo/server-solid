@@ -58,24 +58,3 @@ export namespace Server {
   }
   
 }
-
-
-
-/*export interface Server {
-  receive: (req: Server.IncomingRequest) => Server.OutgoingResponse
-}
-
-namespace Server {
-  export interface IncomingRequest {
-    endpoint: string,
-    verb: string
-    payload: any
-  }
-
-  export interface OutgoingResponse {
-    data: {
-      status: number,
-      messagge: string
-    }
-  }
-}*/

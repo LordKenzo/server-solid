@@ -8,7 +8,7 @@ import { BaseServer } from './BaseServer';
 import { HandlerMessage } from '@/domain/usecases/HandlerMessage';
 import { AxiosAdapter } from './AxiosAdapter';
 
-@HttpRouter.Router([
+@HttpRouter.RoutingTable([
   {
     verb: HTTPValues.HTTP_VERBS.GET,
     endpoint: '/',

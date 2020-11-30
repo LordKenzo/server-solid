@@ -8,7 +8,7 @@ import { createServer, Server as NodeServer} from "http";
 import { AxiosAdapter } from './AxiosAdapter';
 import { BaseServer } from './BaseServer';
 
-@HttpRouter.Router([
+@HttpRouter.RoutingTable([
   {
     verb: HTTPValues.HTTP_VERBS.GET,
     endpoint: '/',

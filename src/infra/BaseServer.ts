@@ -1,21 +1,16 @@
 import { HTTPValues } from "@/domain/common/httpCommonValues";
-import { Handler } from "@/domain/usecases/Handler";
+import { HttpRouter } from "@/domain/usecases/router";
 import { Server } from "@/domain/usecases/server";
 
-interface RoutingTable {
-  [index: string]: {
-    verb: HTTPValues.HTTP_VERBS,
-    handler: Handler| Handler[],
-  }
-}
-
 export abstract class BaseServer implements Server.HttpServer {
+  
+  protected routingTable: HttpRouter.RoutingTable | null= null;
+
   abstract port: number;
   abstract listen(): void;
   abstract close(): void;
-  protected routingTable: RoutingTable | null= null;
+
   async processRequest(endpoint: string, route: any, req: any, res: any) {
-    //this.processRequest(path, this.routingTable && this.routingTable[path], req, res)
     if(route && Array.isArray(route.handler) && route.verb === req.method) {
       const result = await route.handler.reduce(async (prev: any,handler: any) => {
         return await handler.handle(req, res, prev);
@@ -50,7 +45,7 @@ export abstract class BaseServer implements Server.HttpServer {
     res.end();
   }
 
-  protected buildRoutes(router: any): RoutingTable {
+  protected buildRoutes(router: any): HttpRouter.RoutingTable {
     return router.routes.reduce((prev: any, route: any) => {
       return {
         ...prev,

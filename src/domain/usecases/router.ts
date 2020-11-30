@@ -12,10 +12,17 @@ export namespace HttpRouter {
 
   type Constructor<T> = new (...args: any[]) => T;
 
-  export function Router(router: Route[]){
+  export function RoutingTable(router: Route[]){
     return <T>(target: Constructor<T>) => {
       Reflect.defineMetadata('routes', router, target);
     };
+  }
+
+  export interface RoutingTable {
+    [index: string]: {
+      verb: HTTPValues.HTTP_VERBS,
+      handler: Handler| Handler[],
+    }
   }
 
 }

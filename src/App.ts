@@ -20,20 +20,20 @@ export namespace App {
   }
   
   export function createConnectHttpServer(): Server { 
-    const routes = Reflect.getMetadata('routes', HttpServer);
-    const httpServer =  new HttpServer(8080, buildRoutes(routes));
+    const router = Reflect.getMetadata('routes', HttpServer);
+    const httpServer =  new HttpServer(8080, buildRoutes(router));
     const server = new Server(httpServer);
     return server;
   }
 
   export function createExpressServer(): Server {
-    const routes = Reflect.getMetadata('routes', ExpressHttpServer);
-    const expressServer =  new ExpressHttpServer(8080, buildRoutes(routes));
+    const router = Reflect.getMetadata('routes', ExpressHttpServer);
+    const expressServer =  new ExpressHttpServer(8080, buildRoutes(router));
     const server = new Server(expressServer);
     return server;
   }
 
-  function buildRoutes(routes: HttpRouter.Route[]) {
+  function buildRoutes(routes: HttpRouter.Route[]): HttpRouter {
     return { 
       routes: routes.map( ({verb, endpoint, handler}: HttpRouter.Route) => {
       return {
