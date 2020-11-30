@@ -15,7 +15,6 @@ export abstract class BaseServer implements Server.HttpServer {
       const result = await route.handler.reduce(async (prev: any,handler: any) => {
         return await handler.handle(req, res, prev);
       }, {});
-      
       res.writeHead(HTTPValues.HTTP_STATUS_CODES.OK, {'Content-Type': 'text/plain'});
       res.write(JSON.stringify(result));
       res.end();
