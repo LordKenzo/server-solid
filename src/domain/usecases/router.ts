@@ -1,4 +1,4 @@
-import { Handler } from "@/domain/usecases/Handler";
+import { Handler } from "@/domain/usecases/HandlerProva";
 import "reflect-metadata";
 import { HTTPValues } from "../common/httpCommonValues";
 

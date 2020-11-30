@@ -1,5 +1,5 @@
 import { HTTPValues } from '@/domain/common/httpCommonValues';
-import { Handler } from '@/domain/usecases/Handler';
+import { Handler } from '@/domain/usecases/HandlerProva';
 import { HandlerCiao } from '@/domain/usecases/HandlerCiao';
 import { HandlerMessage } from '@/domain/usecases/HandlerMessage';
 import { HttpRouter } from '@/domain/usecases/router';

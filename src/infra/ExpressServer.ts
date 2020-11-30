@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Server as NodeServer } from "http";
 import { HttpRouter } from '@/domain/usecases/router';
-import { Handler } from '@/domain/usecases/Handler';
+import { Handler } from '@/domain/usecases/HandlerProva';
 import { HandlerCiao } from '@/domain/usecases/HandlerCiao';
 import { HTTPValues } from '@/domain/common/httpCommonValues';
 import { BaseServer } from './BaseServer';
