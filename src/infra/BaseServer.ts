@@ -45,7 +45,7 @@ export abstract class BaseServer implements Server.HttpServer {
     res.end();
   }
 
-  protected buildRoutes(router: any): HttpRouter.RoutingTable {
+  protected buildRoutes(router: HttpRouter): HttpRouter.RoutingTable {
     return router.routes.reduce((prev: any, route: any) => {
       return {
         ...prev,
