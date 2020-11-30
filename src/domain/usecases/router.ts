@@ -1,4 +1,4 @@
-import { Handler } from "@/domain/usecases/HandlerProva";
+import { Handler } from "@/domain/usecases/handler";
 import "reflect-metadata";
 import { HTTPValues } from "../common/httpCommonValues";
 
@@ -7,7 +7,7 @@ export namespace HttpRouter {
   export interface Route {
     verb: HTTPValues.HTTP_VERBS
     endpoint: string
-    handler: Handler | Handler[] | any
+    handler: Handler.HandlerRequest | Handler.HandlerRequest[] | any
   }
 
   type Constructor<T> = new (...args: any[]) => T;
@@ -21,7 +21,7 @@ export namespace HttpRouter {
   export interface RoutingTable {
     [index: string]: {
       verb: HTTPValues.HTTP_VERBS,
-      handler: Handler| Handler[],
+      handler: Handler.HandlerRequest| Handler.HandlerRequest[],
     }
   }
 

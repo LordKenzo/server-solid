@@ -1,7 +1,6 @@
 import { Server } from '@/domain/usecases/server';
 import { HttpServer } from "@/infra/HttpServer";
 import { ExpressHttpServer } from "@/infra/ExpressServer";
-import { Handler } from "./domain/usecases/HandlerProva";
 import { HttpRouter } from './domain/usecases/router';
 
 export class App {

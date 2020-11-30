@@ -1,5 +1,5 @@
 import { HTTPValues } from '@/domain/common/httpCommonValues';
-import { Handler } from '@/domain/usecases/HandlerProva';
+import { HandlerProva } from '@/domain/usecases/HandlerProva';
 import { HandlerCiao } from '@/domain/usecases/HandlerCiao';
 import { HandlerMessage } from '@/domain/usecases/HandlerMessage';
 import { HttpRouter } from '@/domain/usecases/router';
@@ -7,22 +7,23 @@ import { Utils } from '@/utils/Utils';
 import { createServer, Server as NodeServer} from "http";
 import { AxiosAdapter } from './AxiosAdapter';
 import { BaseServer } from './BaseServer';
+import { HandlerAuth } from '@/domain/usecases/HandlerAuth';
 
 @HttpRouter.RoutingTable([
   {
     verb: HTTPValues.HTTP_VERBS.GET,
     endpoint: '/',
-    handler: new Handler(),
+    handler: new HandlerProva(),
   },
   {
     verb: HTTPValues.HTTP_VERBS.GET,
     endpoint: '/hello',
-    handler: [new Handler(), new HandlerCiao()]
+    handler: [new HandlerProva(), new HandlerCiao()]
   },
   {
     verb: HTTPValues.HTTP_VERBS.POST,
     endpoint: '/message',
-    handler: [new HandlerMessage(new AxiosAdapter())],
+    handler: [new HandlerAuth(new AxiosAdapter()), new HandlerMessage(new AxiosAdapter())],
   },
 ])
 export class HttpServer extends BaseServer {
