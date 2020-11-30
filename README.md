@@ -29,3 +29,18 @@ Un Handler riceve un header ed un body della Request. Per questo va prevista una
 * git-commit-msg-linter: per creare commit con regole standard [Link](https://www.npmjs.com/package/git-commit-msg-linter)
 * tsconfig-path: mi serve per utilizzare le path definite in tsconfig con ts-node [ISSUE](https://github.com/TypeStrong/ts-node/issues/138)
 * ts-jest: per avere TypeScript on-the-fly con Jest
+
+## Avviare il progetto
+
+Per utilizzare il progetto devi creare un file `.env` nella root contenente la variabile di ambiente API_SECRET, questa verrà letta in environment di tipo development, in alternativa puoi settare una variabile di ambiente nel tuo sistema operativo:
+
+```
+API_SECRET = inserisci_la_tua_api_pagopa
+```
+
+Per avviare, clona il progetto e da shell avvia l'installazione dei packages e l'avvio in dev mode:
+
+```
+npm i
+npm run dev
+```
